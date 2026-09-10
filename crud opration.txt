@@ -1,0 +1,187 @@
+mysql> create table employee(id int primary key, name varchar(50),profile varchar(50),email varchar(100),salary float,age int, experience int);
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> insert into employee (id,name,profile,email,salary,age,experience) values (1,"rani","dev","rani@gmail.com",11000,43,27);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee (id,name,profile,email,salary,age,experience) values (2,"raj","test","raj@gmail.com",21000,33,17),
+    -> (3,"radha","test","radha@gmail.com",26000,38,21),
+    -> (4,"raj","dev","raj12@gmail.com",51000,32,12),
+    -> (5,"john","dev","john@gmail.com",51000,39,27);
+Query OK, 4 rows affected (0.01 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++----+-------+---------+-----------------+--------+------+------------+
+| id | name  | profile | email           | salary | age  | experience |
++----+-------+---------+-----------------+--------+------+------------+
+|  1 | rani  | dev     | rani@gmail.com  |  11000 |   43 |         27 |
+|  2 | raj   | test    | raj@gmail.com   |  21000 |   33 |         17 |
+|  3 | radha | test    | radha@gmail.com |  26000 |   38 |         21 |
+|  4 | raj   | dev     | raj12@gmail.com |  51000 |   32 |         12 |
+|  5 | john  | dev     | john@gmail.com  |  51000 |   39 |         27 |
++----+-------+---------+-----------------+--------+------+------------+
+5 rows in set (0.00 sec)
+
+mysql> altor employee add  branch_location varchar(50);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'altor employee add  branch_location varchar(50)' at line 1
+mysql> altor employee add column  branch_location varchar(50);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'altor employee add column  branch_location varchar(50)' at line 1
+mysql> altor table employee add column  branch_location varchar(50);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'altor table employee add column  branch_location varchar(50)' at line 1
+mysql> ALTER TABLE employee
+    -> ADD COLUMN branch_location VARCHAR(50);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM employee;
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+| id | name  | profile | email           | salary | age  | experience | branch_location |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+|  1 | rani  | dev     | rani@gmail.com  |  11000 |   43 |         27 | NULL            |
+|  2 | raj   | test    | raj@gmail.com   |  21000 |   33 |         17 | NULL            |
+|  3 | radha | test    | radha@gmail.com |  26000 |   38 |         21 | NULL            |
+|  4 | raj   | dev     | raj12@gmail.com |  51000 |   32 |         12 | NULL            |
+|  5 | john  | dev     | john@gmail.com  |  51000 |   39 |         27 | NULL            |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(salary) as total_expenses from employee;
++----------------+
+| total_expenses |
++----------------+
+|         160000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select * form employe where salaey = (selece max(salary) from employee) and profile = "test";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'form employe where salaey = (selece max(salary) from employee) and profile = "te' at line 1
+mysql> select * from employe where salaey = (selece max(salary) from employee) and profile = "test";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'max(salary) from employee) and profile = "test"' at line 1
+mysql> select * from employee where salaey = (select max(salary) from employee) and profile = "test";
+ERROR 1054 (42S22): Unknown column 'salaey' in 'where clause'
+mysql> select * from employee where salary = (select max(salary) from employee) and profile = "test";
+Empty set (0.00 sec)
+
+mysql> select * from employee where salary = (select max(salary) from employee where profile= "test") and profile = "test";
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+| id | name  | profile | email           | salary | age  | experience | branch_location |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+|  3 | radha | test    | radha@gmail.com |  26000 |   38 |         21 | NULL            |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(experience) as average_experience_level from employee;
++--------------------------+
+| average_experience_level |
++--------------------------+
+|                  20.8000 |
++--------------------------+
+1 row in set (0.00 sec)
+
+mysql> select name from employee where salary=(select max(salary) from employee);
++------+
+| name |
++------+
+| raj  |
+| john |
++------+
+2 rows in set (0.00 sec)
+
+mysql> select name from employee where salary=(select min(salary) from employee);
++------+
+| name |
++------+
+| rani |
++------+
+1 row in set (0.00 sec)
+
+mysql> select name,experience from employee where salary=(select min(salary) from employee);
++------+------------+
+| name | experience |
++------+------------+
+| rani |         27 |
++------+------------+
+1 row in set (0.00 sec)
+
+mysql> select count(id) as employee_count from employee;
++----------------+
+| employee_count |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where profile = "test" and salary>25000;
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+| id | name  | profile | email           | salary | age  | experience | branch_location |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+|  3 | radha | test    | radha@gmail.com |  26000 |   38 |         21 | NULL            |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> update employee set profile = "support" where name = "radha";
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee where name="radha";
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+| id | name  | profile | email           | salary | age  | experience | branch_location |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+|  3 | radha | support | radha@gmail.com |  26000 |   38 |         21 | NULL            |
++----+-------+---------+-----------------+--------+------+------------+-----------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) as second_highest_salary from employee where salary<(select max(salary) from employee);
++-----------------------+
+| second_highest_salary |
++-----------------------+
+|                 26000 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee where salary > (select min(salary) from employee);
++-------------+
+| min(salary) |
++-------------+
+|       21000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary) as dev_avg from employee where profile = "dev";
++--------------------+
+| dev_avg            |
++--------------------+
+| 37666.666666666664 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select name, salary from employee where experience= (select min(experience) from employee);
++------+--------+
+| name | salary |
++------+--------+
+| raj  |  51000 |
++------+--------+
+1 row in set (0.00 sec)
+
+mysql> select name form employee age=(select min(age) from employee) and salary = (select max(salary) from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee age=(select min(age) from employee) and salary = (select max(salary) fr' at line 1
+mysql> select name form employee where age=(select min(age) from employee) and salary = (select max(salary) from employee);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'employee where age=(select min(age) from employee) and salary = (select max(sala' at line 1
+mysql> select name from employee where age=(select min(age) from employee) and salary = (select max(salary) from employee);
++------+
+| name |
++------+
+| raj  |
++------+
+1 row in set (0.00 sec)
+
+mysql> truncate table employee;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from employee;
+Empty set (0.00 sec)
+
+mysql> roll back employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'roll back employee' at line 1
+mysql>
