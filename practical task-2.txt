@@ -1,0 +1,47 @@
+create database ecommerce_db;
+show databases;
+use ecommerce_db;
+create table products(
+product_id INT PRIMARY KEY,
+product_name VARCHAR(100),
+category VARCHAR(50),
+brand VARCHAR(50),
+price DECIMAL(10,2),
+quantity INT,
+city VARCHAR(50),
+status VARCHAR(20)
+);
+
+select * from products;
+show tables;
+insert into products values(201, 'Galaxy M55', 'Mobile', 'Samsung', 32000, 15, 'Pune', 'Available');
+INSERT INTO products VALUES
+(202, 'iPhone 15', 'Mobile', 'Apple', 65000, 8, 'Mumbai', 'Available'),
+(203, 'Moto Edge 50', 'Mobile', 'Motorola', 28000, 20, 'Pune', 'Available'),
+(204, 'Inspiron 15', 'Laptop', 'Dell', 58000, 6, 'Nashik', 'Available'),
+(205, 'IdeaPad Slim 3', 'Laptop', 'Lenovo', 45000, 12, 'Mumbai', 'Available'),
+(206, 'Galaxy Watch 6', 'Watch', 'Samsung', 22000, 4, 'Pune', 'Out of Stock'),
+(207, 'Apple Watch SE', 'Watch', 'Apple', 30000, 10, 'Mumbai', 'Available'),
+(208, 'Redmi Pad', 'Tablet', 'Xiaomi', 24000, 18, 'Pune', 'Available'),
+(209, 'OnePlus Pad', 'Tablet', 'OnePlus', 35000, 5, 'Nashik', 'Available'),
+(210, 'Bluetooth Speaker', 'Accessories', 'JBL', 7000, 25, 'Mumbai', 'Available');
+
+select * from products; 
+select product_name from products;
+select product_name, price  from products;
+select product_name,category,brand,price from products;
+
+select * from products where city = 'mumbai';
+select * from products where city = 'pune';
+
+select * from products where category = "mobile";
+select * from products where category = "laptop";
+
+select * from  products where price>30000;
+select * from  products where price<30000;
+select * from  products where price=35000;
+select * from  products where price>=45000;
+select * from  products where price<=30000;
+
+select * from products where quantity>10;
+select * from products where quantity<10;
