@@ -45,3 +45,57 @@ select * from  products where price<=30000;
 
 select * from products where quantity>10;
 select * from products where quantity<10;
+---------------------------------logical operators--------------------------------------------
+select* from products where city = 'pune' and category = 'mobile';
+select* from products where city = 'pune' and status = 'available';
+
+select * from products where price>30000 and quantity>5;
+select * from products where price between 30000 and 60000;
+select * from products where city in ('pune','mumbai');
+select* from products where category='mobile' or category='laptop';
+select * from products where quantity<10 and price >50000;
+select* from products where category='mobile' and price >30000;
+select* from products where brand='apple'or brand='samsung';
+select *from products where city='pune' and status='available' and quantity>10;
+
+-------------------------------Part E - Slightly Higher Operator Logic-------------------------
+select * from products where price between 25000 and 50000;
+select *from products where quantity between 5 and 15;
+
+select * from products where category in ('mobile','laptop','tablet');
+select * from products where city in ("pune","mumbai");
+
+select * from products where brand != 'samsung';
+select * from products where brand not in ('samsung');
+select * from products where not brand = 'samsung';
+
+select * from products where not status = 'out of stock';
+
+select* from products where not price= 30000;
+
+select * from products where product_name like 'galaxy%';
+select * from products where product_name like '%pad%';
+
+select * from products where category = 'mobile' and (price >30000 or quantity>15);
+
+------------------------------------Part F - UPDATE Operations-----------------------------
+update products set price = 34000 where product_name ='galaxy m55';
+select* from products where product_name ='galaxy m55';
+update products set quantity=12 where product_name ='iphone';
+
+update products set status = 'available' where product_name = 'galaxy watch 6';
+update products set price = price +2000 where category = 'mobile';
+
+update products set quantity = quantity+5 where city = 'pune';
+
+update products set status = 'out of stock' where quantity<5;
+
+------------------------------------Part G - DELETE Operations------------------------------
+delete from products where product_id = 210;
+delete from products where price<8000;
+
+delete from products where status = 'out of stock'and quantity <5;
+
+select * from products;
+
+delete from products where category='tablet' and price>30000;
